@@ -64,6 +64,10 @@ public class User {
 		purchasedTickets.add(ticket);
 	}
 	
+	public void removeTicket(Ticket ticket) {
+		purchasedTickets.remove(ticket);
+	}
+	
 	// Methods
 	public void addPaymentInfo(String ccNum) {
 		if (ccNum.length() != 16) {

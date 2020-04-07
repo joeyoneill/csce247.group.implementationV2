@@ -48,7 +48,7 @@ class Ticket {
 			"Col: " + seatCol +
 			"\n" + event.toString() +
 			"\n********************";
-	String file = event.getType() + "_ticket.txt";
+	String file = event.name + "_ticket.txt";
 	try {
 		FileWriter writer = new FileWriter(file);
 		writer.write(tick);

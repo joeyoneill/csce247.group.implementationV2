@@ -50,26 +50,27 @@ public class Driver {
             	}*/
             	switch (userCommand) {
             	    case (1):
-            	    	// Events
+            	    	// Events Command
             	    	pickEvent();
             	    	userCommand = getUserInput(events.size());
-                        events.get(userCommand);
+                        eventView(events.get(userCommand - 1));
                         break;
                     case (2):
-                        // View Tickets
+                        // View Tickets Command
                     	
                     	// If there are no purchased tickets
                     	if (currentUser.getTickets().isEmpty()) {
                     		System.out.println("Currently no tickets are owned");
                     		break;
                     	}
-                        
                         pickTicket();
                         userCommand = getUserInput(currentUser.getTickets().size());
+                        ticketView(currentUser.getTickets().get(userCommand - 1));
                         break;
                     case (3):
                     	// Quit
                     	System.out.println("Goodbye!");
+                        // TODO add file write before all exits
                         System.exit(0);
                     	break;
                 }
@@ -192,6 +193,7 @@ public class Driver {
         for (Event event : events) {
             i++;
             System.out.println(i + ". " + event.toString());
+            System.out.println("********************");
         }
     }
     
@@ -211,7 +213,6 @@ public class Driver {
     }
 
     private int getUserInput(int numOfOptions) {
-
         System.out.println("Please choose a menu option: (Number input)");
         String input = scanner.nextLine();
         int command = Integer.parseInt(input); // -1 for array index
@@ -238,66 +239,121 @@ public class Driver {
     public void eventView(Event event) {
     	System.out.println(event.toString());
     	System.out.println("********************");
-    	System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
-    	String viewInput = scanner.nextLine();
+    	while(true) {
+    		System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
+    		String viewInput = scanner.nextLine();
     	
-    	if (viewInput.equals("1")) {
-    		event.visualizeSeating();
+    		if (viewInput.equals("1")) {
+    			event.visualizeSeating();
     		
-    		while(true) {
-    			System.out.println("Enter the row you wish to choose from.");
-    			int rowInput = scanner.nextInt() - 1;
-    			if (rowInput < 0 || rowInput > event.venue.getRows()) {
-    				System.out.println("Invalid Input");
-    				continue;
-    			}
-    			else {
-    				System.out.println("Enter the seat you wish to choose.");
-    				int colInput = scanner.nextInt() - 1;
-    				if (colInput < 0 || colInput > event.venue.getColumns()) {
+    			while(true) {
+    				System.out.println("Enter the row you wish to choose from.");
+    				int rowInput = scanner.nextInt() - 1;
+    				if (rowInput < 0 || rowInput > event.venue.getRows()) {
     					System.out.println("Invalid Input");
     					continue;
     				}
     				else {
-    					if (event.checkSeatAvailability(rowInput, colInput) == true) {
-    						Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
-    						currentUser.purchaseTicket(ticket);
-    						event.seats[rowInput][colInput] = true;
-    						break;
+    					System.out.println("Enter the seat you wish to choose.");
+    					int colInput = scanner.nextInt() - 1;
+    					if (colInput < 0 || colInput > event.venue.getColumns()) {
+    						System.out.println("Invalid Input");
+    						continue;
+    					}
+    					else {
+    						if (event.checkSeatAvailability(rowInput, colInput) == true) {
+    							Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
+    							currentUser.purchaseTicket(ticket);
+    							System.out.println("Ticket purchased!");
+    							event.seats[rowInput][colInput] = true;
+    							break;
+    						}
     					}
     				}
     			}
+    			continue;
+    		}
+    		else if (viewInput.equals("2")) {
+    			System.out.println("Enter your review's title.");
+    			String reviewTitleInput = scanner.nextLine();
+    			System.out.println("Enter your review.");
+    			String reviewInput = scanner.nextLine();
+    			System.out.println("Enter your rating. (A decimal value between 0 and 5)");
+    			double ratingInput;
+    		
+    			while (true) {
+    				ratingInput = scanner.nextDouble();
+    				if(ratingInput < 0 || ratingInput > 5) {
+    					System.out.println("Input Error: Out of bounds.");
+    					continue;
+    				}
+    				break;
+    			}
+    		
+    			event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
+    			continue;
+    		}
+    		else if (viewInput.equals("3")) {
+    			// TODO exit to home screen
+    			break;
+    		}
+    		else {
+    			System.out.println("Invalid Input.");
+    			continue;
     		}
     	}
-    	else if (viewInput.equals("2")) {
-    		System.out.println("Enter your review's title.");
-    		String reviewTitleInput = scanner.nextLine();
-    		System.out.println("Enter your review.");
-    		String reviewInput = scanner.nextLine();
-    		System.out.println("Enter your rating. (A decimal value between 0 and 5)");
-    		double ratingInput;
-    		
-    		while (true) {
-    			ratingInput = scanner.nextDouble();
-    			if(ratingInput < 0 || ratingInput > 5) {
-    				System.out.println("Input Error: Out of bounds.");
+    }
+    
+    public void ticketView(Ticket ticket) {
+    	System.out.println(ticket.toString());
+    	System.out.println("********************");
+    	while(true) {
+    		System.out.print("Type 1 to print ticket, 2 to exit");
+    	
+    		if (ticket.isRefundable == true)
+    			System.out.print(", or 3 to get a refund on your ticket.");
+    		System.out.print("\n");
+    		int ticketInput;
+    	
+    		while(true) {
+    			ticketInput = scanner.nextInt();
+    			if (ticket.isRefundable == false && (ticketInput < 1 || ticketInput > 2)) {
+    				System.out.println("Invalid Input: Out of Bounds.");
+    				continue;
+    			}
+    			else if (ticket.isRefundable == true && (ticketInput < 1 || ticketInput > 3)) {
+    				System.out.println("Invalid Input: Out of Bounds.");
     				continue;
     			}
     			break;
     		}
-    		
-    		event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
-    	}
-    	else if (viewInput.equals("3")) {
-    		// TODO exit to home screen
-    	}
-    	else {
-    		System.out.println("Invalid Input.");
+    	
+    		if (ticketInput == 1) {
+    			ticket.printTicket();
+    			System.out.println("Ticket printed to file: " + ticket.event.name + "_ticket.txt");
+    			System.out.println("********************");
+    			continue;
+    		}
+    		else if (ticketInput == 2) {
+    			// TODO go back to home view
+    			break;
+    		}
+    		else if (ticketInput == 3) {
+    			currentUser.removeTicket(ticket);
+    			ticket.event.seats[ticket.seatRow][ticket.seatCol] = false;
+    			System.out.println("Ticket refunded!");
+    			break;
+    		}
     	}
     }
     
     public static void main(String[] args) {
         Driver driver = new Driver();
         driver.run();
+        /*User user = new User("name", "password", UserType.REGULAR);
+        Venue movieVenue = new Venue("movieVenue", 5, 10);
+        Event event = new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0));
+        Ticket ticket = new Ticket(user.getName(), event, 1, 1, true);
+        driver.ticketView(ticket);*/
     }
 }
