@@ -29,9 +29,9 @@ public class Driver {
         users = new ArrayList<User>();
         users.add(new User("name","pass",UserType.REGULAR));
         events = new ArrayList<Event>();
-        events.add(new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0)));
+        /*events.add(new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0)));
         events.add(new Movie("movie2", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(11,30,0)));
-        events.add(new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0)));
+        events.add(new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0)));*/
 
     }
 
@@ -83,6 +83,7 @@ public class Driver {
                 switch (userCommand) {
                     case (1):
                         // create event
+                    	createEvent();
                         break;
                     case (2):
                     	// Quit
@@ -360,6 +361,46 @@ public class Driver {
     	database.writeUserDBFile("userInput.txt", users);
     	database.writeReviewDBFile("reviewsInput.txt", events);
     	database.writeTicketDBFile("ticketInput.txt", users);
+    }
+    
+    // allows employees to create events
+    public void createEvent() {
+    	System.out.println("Which type of event would you like to create?");
+    	System.out.println("Type 1 for Concert, 2 for Movie, or 3 for Play.");
+    	int eventInput;
+    	
+    	while(true) {
+    		eventInput = scanner.nextInt();
+    		if(eventInput < 1 || eventInput > 3) {
+    			System.out.println("Input Error: Out of Bounds.");
+    			continue;
+    		}
+    		else
+    			break;
+    	}
+    	
+    	System.out.println("Enter the Event's name");
+    	String eventNameInput = scanner.nextLine();
+    	
+    	System.out.println("Enter the Event's date (format: YYYY-MM-DD)");
+    	String eventDateInput = scanner.nextLine();
+    	
+    	System.out.println("Enter the Event's time (format: HH:MM:SS)");
+    	String eventTimeInput = scanner.nextLine();
+    	
+    	Event newEvent;
+    	if (eventInput == 1) {
+    		newEvent = new Concert(eventNameInput, concertVenue, LocalDate.parse(eventDateInput), LocalTime.parse(eventTimeInput));
+    	}
+    	else if (eventInput == 2) {
+    		newEvent = new Movie(eventNameInput, movieVenue, LocalDate.parse(eventDateInput), LocalTime.parse(eventTimeInput));
+    	}
+    	else {
+    		// else can only be eventInput == 3
+    		newEvent = new Play(eventNameInput, playVenue, LocalDate.parse(eventDateInput), LocalTime.parse(eventTimeInput));
+    	}
+    	events.add(newEvent);
+    	System.out.println("Event " + newEvent.name + " added!");
     }
     
     public static void main(String[] args) {
