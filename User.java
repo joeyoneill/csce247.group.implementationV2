@@ -12,6 +12,12 @@ public class User {
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
+	public User(String name, UserType userType) {
+		this.name = name;
+		this.userType = userType;
+		purchasedTickets = new ArrayList<Ticket>();
+	}
+	
 	// Getters
 	public String getName() {
 		return this.name;
