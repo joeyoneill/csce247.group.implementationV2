@@ -260,10 +260,8 @@ public class Driver {
     				}
     				else {
     					if (event.checkSeatAvailability(rowInput, colInput) == true) {
-    						// TODO change test to currentUser, delete test user code : 264, 266
-    						User test = new User("name","pass",UserType.REGULAR);
-    						Ticket ticket = new Ticket(test.getName(), event, rowInput, colInput, true);
-    						test.purchaseTicket(ticket);
+    						Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
+    						currentUser.purchaseTicket(ticket);
     						event.seats[rowInput][colInput] = true;
     						break;
     					}
@@ -291,7 +289,7 @@ public class Driver {
     		event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
     	}
     	else if (viewInput.equals("3")) {
-    		
+    		// TODO exit to home screen
     	}
     	else {
     		System.out.println("Invalid Input.");
@@ -300,13 +298,6 @@ public class Driver {
     
     public static void main(String[] args) {
         Driver driver = new Driver();
-        //driver.run();
-        Venue movieVenue = new Venue("movieVenue", 5, 10);
-        Event event = new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0));
-        driver.eventView(event);
-        for (Review review : event.reviews) {
-        	System.out.println(review.title + " " + review.description + " " + review.rating);
-        }
-        //event.visualizeSeating();
+        driver.run();
     }
 }
