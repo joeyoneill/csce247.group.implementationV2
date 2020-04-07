@@ -371,13 +371,16 @@ public class Driver {
     		}
     		else if (ticketInput == 2) {
     			// TODO go back to home view
+    			scanner.nextLine();
     			break;
     		}
     		else if (ticketInput == 3) {
     			currentUser.removeTicket(ticket);
     			ticket.event.seats[ticket.seatRow][ticket.seatCol] = false;
     			System.out.println("Ticket refunded!");
-    			break;
+    			database.writeTicketDBFile("ticketInput.txt", users);
+    			scanner.nextLine();
+    			continue;
     		}
     	}
     }

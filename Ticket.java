@@ -45,10 +45,10 @@ class Ticket {
 			"\n" + event.getType() +
 			"\n" + event.venue.getName() +
 			"\n" + "Row: " + seatRow +
-			"Col: " + seatCol +
+			" Col: " + seatCol +
 			"\n" + event.toString() +
 			"\n********************";
-	String file = event.name + "_ticket.txt";
+	String file = event.name + "_" + seatRow + "_" + seatCol + "_ticket.txt";
 	try {
 		FileWriter writer = new FileWriter(file);
 		writer.write(tick);
@@ -67,7 +67,7 @@ class Ticket {
 				"\n" + event.getType() +
 				"\n" + event.venue.getName() +
 				"\n" + "Row: " + seatRow +
-				"Col: " + seatCol +
+				" Col: " + seatCol +
 				"\n" + event.toString() +
 				"\n********************";
 	  return tick;
