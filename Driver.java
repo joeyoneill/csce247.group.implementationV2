@@ -379,7 +379,9 @@ public class Driver {
 
 	public void eventReviews(Event event) {
 		for (int i = 0; i < event.reviews.size(); i++) {
+			System.out.println("********************");
 			System.out.println(event.reviews.get(i).toString());
+			System.out.println("********************");
 		}
 	}
 
