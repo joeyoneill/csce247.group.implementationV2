@@ -4,7 +4,7 @@ public class User {
 	private String name;
 	private String password;
 	private UserType userType;
-	private PaymentInfo paymentInfo = null;
+	private String ccNum;
 	private ArrayList<Ticket> purchasedTickets;
 	
 	// Guest Constructor
@@ -12,6 +12,7 @@ public class User {
 		this.name = "Guest";
 		this.password = null;
 		this.userType = UserType.GUEST;
+		this.ccNum = null;
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
@@ -19,6 +20,7 @@ public class User {
 		this.name = name;
 		this.password = password;
 		this.userType = userType;
+		this.ccNum = null;
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
@@ -49,12 +51,11 @@ public class User {
 	}
 	
 	// Methods
-	public void addPaymentInfo(String ccNum, String expMonth, String expYear, String ccv) {
-		paymentInfo.setCcNum(ccNum);
-		paymentInfo.setExpMonth(expMonth);
-		paymentInfo.setExpYear(expYear);
-		paymentInfo.setExpDate();
-		paymentInfo.setCcv(ccv);
+	public void addPaymentInfo(String ccNum) {
+		if (ccNum.length() != 16) {
+			ccNum = null;
+		}
+		this.ccNum = ccNum;
 	}
 	
 }
