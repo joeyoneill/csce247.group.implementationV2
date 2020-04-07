@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Movie extends Event {
 	
-	public Movie(String name, String genre, double cost, Venue venue,
+	public Movie(String name, String genre, Venue venue,
 			LocalDate date, LocalTime time) {
 		this.name = name;
 		this.venue = venue;
