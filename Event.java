@@ -9,7 +9,7 @@ public abstract class Event {
 	public LocalDate date;
 	public LocalTime time;
 	public boolean[][] seats;
-	public ArrayList<Review> reviews = new ArrayList<Review>();
+	public ArrayList<Review> reviews;
 	
 	/**
 	 * Average rating generates an average out of 5 from all ratings
@@ -37,5 +37,24 @@ public abstract class Event {
 
 	public String getType() {
 		return type;
+	}
+	
+	public void visualizeSeating() {
+		int openSeats = 1;
+		
+		for(int i = 0; i < venue.getRows(); i++) {
+			for(int j = 0; i < venue.getColumns(); i++) {
+				if (seats[i][j] == false) {
+					System.out.print("X ");
+				}
+				else {
+					System.out.print(openSeats + " ");
+					openSeats++;
+				}
+			}
+			System.out.print("\n");
+		}
+		
+		
 	}
 }

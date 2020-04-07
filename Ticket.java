@@ -25,11 +25,15 @@ class Ticket {
   
   public String printTicket() {
 	String tick =
-			"Event type: " + event.getType() +
+			"********************\n" +
+			"Event name: " + event.name +
+			"\n********************" +
+			"\n" + event.getType() +
 			"\n" + event.venue.getName() +
 			"\n" + "Row: " + seatRow +
 			"Col: " + seatCol +
-			"\n" + event.toString();
+			"\n" + event.toString() +
+			"\n********************";
 	String file = event.getType() + "_ticket.txt";
 	try {
 		FileWriter writer = new FileWriter(file);
