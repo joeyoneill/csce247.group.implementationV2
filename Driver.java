@@ -397,35 +397,57 @@ public class Driver {
 		int eventInput;
 
 		while (true) {
-			eventInput = scanner.nextInt();
+			eventInput = Integer.parseInt(scanner.nextLine());
 			if (eventInput < 1 || eventInput > 3) {
 				System.out.println("Input Error: Out of Bounds.");
 				continue;
-			} else
+			} 
+			else {
 				break;
+			}
 		}
 
 		System.out.println("Enter the Event's name");
 		String eventNameInput = scanner.nextLine();
-		// had to call extra nextline due to skipping the name input
-		scanner.nextLine();
 
 		System.out.println("Enter the Event's date (format: YYYY-MM-DD)");
 		String eventDateInput = scanner.nextLine();
 
 		System.out.println("Enter the Event's time (format: HH:MM:SS)");
 		String eventTimeInput = scanner.nextLine();
-
+		
+		System.out.println("Enter the venue name");
+		String venueName = scanner.nextLine();
+		
+		System.out.println("Enter the number of rows of seats in the venue");
+		int venueRows = -1;
+		while(venueRows <= 0 || venueRows >= 1000) {
+			String rows = scanner.nextLine();
+			venueRows = Integer.parseInt(rows);
+		}
+		
+		System.out.println("Enter the number of columns of seats in the venue");
+		int venueColumns = -1;
+		while(venueColumns <= 0 || venueColumns > 1000) {
+			String columns = scanner.nextLine();
+			venueColumns = Integer.parseInt(columns);
+		}
+		
+		venueRows--;
+		venueColumns--;
+		
+		Venue venue = new Venue(venueName, venueRows, venueColumns);
+		
 		Event newEvent;
 		if (eventInput == 1) {
-			newEvent = new Concert(eventNameInput, concertVenue, LocalDate.parse(eventDateInput),
+			newEvent = new Concert(eventNameInput, venue, LocalDate.parse(eventDateInput),
 					LocalTime.parse(eventTimeInput));
 		} else if (eventInput == 2) {
-			newEvent = new Movie(eventNameInput, movieVenue, LocalDate.parse(eventDateInput),
+			newEvent = new Movie(eventNameInput, venue, LocalDate.parse(eventDateInput),
 					LocalTime.parse(eventTimeInput));
 		} else {
 			// else can only be eventInput == 3
-			newEvent = new Play(eventNameInput, playVenue, LocalDate.parse(eventDateInput),
+			newEvent = new Play(eventNameInput, venue, LocalDate.parse(eventDateInput),
 					LocalTime.parse(eventTimeInput));
 		}
 		events.add(newEvent);
