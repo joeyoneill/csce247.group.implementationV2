@@ -1,9 +1,20 @@
+
+/**
+ * Review object
+ */
 public class Review {
 	public String eventName;
 	public String title;
 	public String description;
 	public int rating;
 
+	/**
+	 * Default constructor: generates review
+	 * @param eventName - name of event
+	 * @param title - title of review
+	 * @param description - description of review
+	 * @param rating - integer rating 0-5 of event
+	 */
 	public Review(String eventName, String title, String description, int rating) {
 		this.eventName = eventName;
 		this.title = title;
