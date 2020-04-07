@@ -10,7 +10,9 @@ public class Driver {
     private Scanner scanner;
     private ArrayList<User> users;
     private User currentUser;
-    private ArrayList<Venue> venues;
+    // private ArrayList<Venue> venues;
+    private Database database;
+    private ArrayList<Event> events;
 
     // Venues
     Venue playVenue = new Venue("playVenue", 5, 10);
@@ -19,8 +21,11 @@ public class Driver {
 
     Driver() {
         scanner = new Scanner(System.in);
+        database = new Database();
+        database.readEventDBFile(aFileName, events);
         // read in users here
         // read in venue here
+
     }
 
     public void run() {
@@ -40,9 +45,11 @@ public class Driver {
             switch (userCommand) {
                 case (0):
                     // guest user
+                    currentUser = new User("guest", UserType.GUEST);
                     break;
                 case (1):
                     // sign in
+                    // TODO check against database, if user is not already in DB then create user.
                     break;
             }
             if (currentUser.getUsertype() == UserType.GUEST || currentUser.getUsertype() == UserType.REGULAR) {
@@ -52,6 +59,15 @@ public class Driver {
                     System.out.println("Going back");
                     break;
                 }
+                switch (userCommand) {
+                    case (0):
+                        pickEvent();
+                        break;
+                    case (1):
+                        //
+                        break;
+                }
+
             }
             if (currentUser.getUsertype() == UserType.EMPLOYEE) {
                 displayEmployeeOptions();
@@ -66,6 +82,14 @@ public class Driver {
                 }
             }
 
+        }
+    }
+
+    private void pickEvent() {
+        int i = 0;
+        for (Event event : events) {
+            i++;
+            System.out.println(i + ". " + event.toString());
         }
     }
 
