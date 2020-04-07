@@ -243,11 +243,52 @@ public class Driver {
     	
     	if (viewInput.equals("1")) {
     		event.visualizeSeating();
-    		//Ticket ticket = new Ticket(currentUser.getName(), Event event, int seatRow, int seatCol, boolean isRefundable);
-    		//currentUser.purchaseTicket(ticket);
+    		
+    		while(true) {
+    			System.out.println("Enter the row you wish to choose from.");
+    			int rowInput = scanner.nextInt() - 1;
+    			if (rowInput < 0 || rowInput > event.venue.getRows()) {
+    				System.out.println("Invalid Input");
+    				continue;
+    			}
+    			else {
+    				System.out.println("Enter the seat you wish to choose.");
+    				int colInput = scanner.nextInt() - 1;
+    				if (colInput < 0 || colInput > event.venue.getColumns()) {
+    					System.out.println("Invalid Input");
+    					continue;
+    				}
+    				else {
+    					if (event.checkSeatAvailability(rowInput, colInput) == true) {
+    						// TODO change test to currentUser, delete test user code : 264, 266
+    						User test = new User("name","pass",UserType.REGULAR);
+    						Ticket ticket = new Ticket(test.getName(), event, rowInput, colInput, true);
+    						test.purchaseTicket(ticket);
+    						event.seats[rowInput][colInput] = true;
+    						break;
+    					}
+    				}
+    			}
+    		}
     	}
     	else if (viewInput.equals("2")) {
+    		System.out.println("Enter your review's title.");
+    		String reviewTitleInput = scanner.nextLine();
+    		System.out.println("Enter your review.");
+    		String reviewInput = scanner.nextLine();
+    		System.out.println("Enter your rating. (A decimal value between 0 and 5)");
+    		double ratingInput;
     		
+    		while (true) {
+    			ratingInput = scanner.nextDouble();
+    			if(ratingInput < 0 || ratingInput > 5) {
+    				System.out.println("Input Error: Out of bounds.");
+    				continue;
+    			}
+    			break;
+    		}
+    		
+    		event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
     	}
     	else if (viewInput.equals("3")) {
     		
@@ -263,5 +304,9 @@ public class Driver {
         Venue movieVenue = new Venue("movieVenue", 5, 10);
         Event event = new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0));
         driver.eventView(event);
+        for (Review review : event.reviews) {
+        	System.out.println(review.title + " " + review.description + " " + review.rating);
+        }
+        //event.visualizeSeating();
     }
 }

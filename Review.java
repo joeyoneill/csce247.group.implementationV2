@@ -2,9 +2,9 @@ public class Review {
 	public String eventName;
 	public String title;
 	public String description;
-	public int rating;
+	public double rating;
 
-	public Review(String eventName, String title, String description, int rating) {
+	public Review(String eventName, String title, String description, double rating) {
 		this.eventName = eventName;
 		this.title = title;
 		this.description = description;
@@ -35,7 +35,7 @@ public class Review {
 		this.description = description;
 	}
 
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
 

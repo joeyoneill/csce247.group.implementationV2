@@ -52,7 +52,12 @@ public abstract class Event {
 			}
 			System.out.print("\n");
 		}
-		
-		
+	}
+	
+	public boolean checkSeatAvailability(int i, int j) {
+		if (seats[i][j] == false)
+			return true;
+		else
+			return false;
 	}
 }
