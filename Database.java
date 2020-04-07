@@ -19,13 +19,13 @@ public class Database {
 			for(Event event : events) {
 				 if(event == null)
 					 break;
-				 fileWriter.println(event.getName()+DELIM+
-						 event.getVenue().getName()+DELIM+
-						 event.getVenue().getRows()+DELIM+
-						 event.getVenue().getColumns()+DELIM+
+				 fileWriter.println(event.name +DELIM+
+						 event.venue.getName()+DELIM+
+						 event.venue.getRows()+DELIM+
+						 event.venue.getColumns()+DELIM+
 						 event.getType()+DELIM+
-						 event.getDate().toString()+DELIM+
-						 event.getTime().toString()+DELIM);
+						 event.date.toString()+DELIM+
+						 event.time.toString()+DELIM);
 			 }
 			 fileWriter.close();//DON'T FORGET TO CLOSE STREAMS
 		  }

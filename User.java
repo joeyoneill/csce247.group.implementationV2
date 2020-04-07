@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class User {
 	private String name;
 	private UserType userType;
+	private PaymentInfo paymentInfo = null;
 	private ArrayList<Ticket> purchasedTickets;
 	
 	// Guest Constructor
@@ -36,6 +37,15 @@ public class User {
 	
 	public void purchaseTicket(Ticket ticket) {
 		purchasedTickets.add(ticket);
+	}
+	
+	// Methods
+	public void addPaymentInfo(String ccNum, String expMonth, String expYear, String ccv) {
+		paymentInfo.setCcNum(ccNum);
+		paymentInfo.setExpMonth(expMonth);
+		paymentInfo.setExpYear(expYear);
+		paymentInfo.setExpDate();
+		paymentInfo.setCcv(ccv);
 	}
 	
 }
