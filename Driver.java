@@ -7,7 +7,7 @@ public class Driver {
     public static final String WELCOME_MESSAGE = "************Welcome************";
     String[] signInOptions = { "Guest User", "Sign in", "Sign up", "Quit"};
     String[] menuOptions = { "View Events", "View Tickets", "Quit" };
-    String[] employeeOptions = { "Create Event", "Logout" };
+    String[] employeeOptions = { "Create Event", "Quit" };
     String[] venueOptions = { "" };
     Scanner scanner;
     ArrayList<User> users;
@@ -57,35 +57,37 @@ public class Driver {
                         break;
                     case (2):
                         // View Tickets Command
-                    	
                     	// If there are no purchased tickets
                     	if (currentUser.getTickets().isEmpty()) {
                     		System.out.println("Currently no tickets are owned");
                     		break;
                     	}
+                        // If there are tickets
                         pickTicket();
                         userCommand = getUserInput(currentUser.getTickets().size());
                         ticketView(currentUser.getTickets().get(userCommand - 1));
                         break;
                     case (3):
                     	// Quit
-                    	System.out.println("Goodbye!");
-                        // TODO add file write before all exits
-                        System.exit(0);
+                    	close();
                     	break;
                 }
             }
         	else if (currentUser.getUsertype() == UserType.EMPLOYEE) {
                 displayEmployeeOptions();
                 userCommand = getUserInput(employeeOptions.length + 1);
-                if (userCommand == menuOptions.length - 1) {
+                /*if (userCommand == menuOptions.length - 1) {
                     System.out.println("Logging out");
                     break;
-                }
+                }*/
                 switch (userCommand) {
-                    case (0):
+                    case (1):
                         // create event
                         break;
+                    case (2):
+                    	// Quit
+                    	close();
+                    	break;
                 }
             }
         }
@@ -179,8 +181,7 @@ public class Driver {
                     break;
                 case (4):
                     // Exit
-                    System.out.println("Goodbye!");
-                	System.exit(0);
+                    close();
                     break;
             }
             if (contLoginScreen == false)
@@ -188,7 +189,13 @@ public class Driver {
 		}
 	}
 	
-    private void pickEvent() {
+	public void close() {
+		System.out.println("Goodbye");
+        updateDatabaseOnClose();
+        System.exit(0);
+	}
+    
+	private void pickEvent() {
         int i = 0;
         for (Event event : events) {
             i++;
@@ -347,13 +354,16 @@ public class Driver {
     	}
     }
     
+    // rewrites all db files with updated information
+    public void updateDatabaseOnClose() {
+    	database.writeEventDBFile("eventsInput.txt", events);
+    	database.writeUserDBFile("userInput.txt", users);
+    	database.writeReviewDBFile("reviewsInput.txt", events);
+    	database.writeTicketDBFile("ticketInput.txt", users);
+    }
+    
     public static void main(String[] args) {
         Driver driver = new Driver();
         driver.run();
-        /*User user = new User("name", "password", UserType.REGULAR);
-        Venue movieVenue = new Venue("movieVenue", 5, 10);
-        Event event = new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0));
-        Ticket ticket = new Ticket(user.getName(), event, 1, 1, true);
-        driver.ticketView(ticket);*/
     }
 }
