@@ -60,4 +60,19 @@ public abstract class Event {
 		else
 			return false;
 	}
+	
+	/**
+	 * 
+	 * @returns count of remaining seats
+	 */
+	public int seatsRemaining() {
+		int count = 0;
+		for(int i = 0; i < venue.getRows(); i++) {
+			for(int j = 0; j < venue.getColumns(); j++) {
+				if(seats[i][j] == false)
+					count++;
+			}
+		}
+		return count;
+	}
 }

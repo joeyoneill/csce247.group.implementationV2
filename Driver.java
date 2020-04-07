@@ -247,7 +247,7 @@ public class Driver {
     
     /**
      * View of Events
-     * From here you can buy event ticket, or leave the event a review
+     * From here you can buy event tickets, or leave the event a review
      * @param event
      */
     public void eventView(Event event) {
@@ -260,28 +260,42 @@ public class Driver {
     		// Buy tickets
     		if (viewInput.equals("1")) {
     			event.visualizeSeating();
-    		
+    			System.out.println("********************");
+    			
+    			System.out.println("How many tickets would you like to buy?");
+    			int ticketAmtInput;
     			while(true) {
-    				System.out.println("Enter the row you wish to choose from.");
-    				int rowInput = scanner.nextInt() - 1;
-    				if (rowInput < 0 || rowInput > event.venue.getRows()) {
-    					System.out.println("Invalid Input");
+    				ticketAmtInput = scanner.nextInt();
+    				if(ticketAmtInput < 1 || ticketAmtInput > event.seatsRemaining()) {
+    					System.out.println("Input Error: Out of Bounds.");
     					continue;
     				}
-    				else {
-    					System.out.println("Enter the seat you wish to choose.");
-    					int colInput = scanner.nextInt() - 1;
-    					if (colInput < 0 || colInput > event.venue.getColumns()) {
+    				break;
+    			}
+    		
+    			for (int i = 0; i < ticketAmtInput; i++) {
+    				while(true) {
+    					System.out.println("Enter the row you wish to choose from.");
+    					int rowInput = scanner.nextInt() - 1;
+    					if (rowInput < 0 || rowInput > event.venue.getRows()) {
     						System.out.println("Invalid Input");
     						continue;
     					}
     					else {
-    						if (event.checkSeatAvailability(rowInput, colInput) == true) {
-    							Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
-    							currentUser.purchaseTicket(ticket);
-    							System.out.println("Ticket purchased!");
-    							event.seats[rowInput][colInput] = true;
-    							break;
+    						System.out.println("Enter the seat you wish to choose.");
+    						int colInput = scanner.nextInt() - 1;
+    						if (colInput < 0 || colInput > event.venue.getColumns()) {
+    							System.out.println("Invalid Input");
+    							continue;
+    						}
+    						else {
+    							if (event.checkSeatAvailability(rowInput, colInput) == true) {
+    								Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
+    								currentUser.purchaseTicket(ticket);
+    								System.out.println("Ticket purchased!");
+    								event.seats[rowInput][colInput] = true;
+    								break;
+    							}
     						}
     					}
     				}
