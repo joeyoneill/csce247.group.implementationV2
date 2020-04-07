@@ -251,7 +251,7 @@ public class Driver {
 		System.out.println("********************");
 		String viewInput;
 		while (true) {
-			System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
+			System.out.println("Type 1 to buy ticket, 2 to leave a review, 3 to see reviews, or 4 to exit");
 			viewInput = scanner.nextLine();
 
 			// Buy tickets
@@ -320,7 +320,7 @@ public class Driver {
 				event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
 				break;
 			} else if (viewInput.equals("3")) {
-				// exit to home screen
+				eventReviews(event);
 				break;
 			} else {
 				// System.out.println("Invalid Input.");
