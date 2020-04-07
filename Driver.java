@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Driver {
     private static final String WELCOME_MESSAGE = "************Welcome************";
-    private String[] signInOptions = { "Guest User", "Sign in" };
-    private String[] menuOptions = { "Events", "View Tickets", "Logout" };
+    private String[] signInOptions = { "Guest User", "Sign in", "Quit" };
+    private String[] menuOptions = { "Events", "View Tickets", "Back" };
     private String[] employeeOptions = { "Create Event", "Logout" };
     private String[] venueOptions = { "" };
     private Scanner scanner;
@@ -47,11 +47,26 @@ public class Driver {
             }
             if (currentUser.getUsertype() == UserType.GUEST || currentUser.getUsertype() == UserType.REGULAR) {
                 displayMenuOptions();
+                userCommand = getUserInput(menuOptions.length);
+                if (userCommand == menuOptions.length - 1) {
+                    System.out.println("Going back");
+                    break;
+                }
+            }
+            if (currentUser.getUsertype() == UserType.EMPLOYEE) {
+                displayEmployeeOptions();
+                if (userCommand == menuOptions.length - 1) {
+                    System.out.println("Logging out");
+                    break;
+                }
+                switch (userCommand) {
+                    case (0):
+                        // create event
+                        break;
+                }
             }
 
         }
-    }
-
     }
 
     private void displayLoginMenu() {
@@ -70,5 +85,19 @@ public class Driver {
             return command;
         }
         return -1;
+    }
+
+    private void displayMenuOptions() {
+        System.out.println("\n***** MENU OPTIONS *****");
+        for (int i = 0; i < menuOptions.length; i++) {
+            System.out.println((i + 1) + ". " + menuOptions[i]);
+        }
+    }
+
+    private void displayEmployeeOptions() {
+        System.out.println("\n***** MENU OPTIONS *****");
+        for (int i = 0; i < employeeOptions.length; i++) {
+            System.out.println((i + 1) + ". " + employeeOptions[i]);
+        }
     }
 }
