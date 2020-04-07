@@ -127,4 +127,9 @@ public class Driver {
             System.out.println((i + 1) + ". " + employeeOptions[i]);
         }
     }
+
+    public static void main(String[] args) {
+        Driver driver = new Driver();
+        driver.run();
+    }
 }
