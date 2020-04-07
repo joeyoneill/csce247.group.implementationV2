@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class User {
 	private String name;
+	private String password;
 	private UserType userType;
 	private PaymentInfo paymentInfo = null;
 	private ArrayList<Ticket> purchasedTickets;
@@ -9,19 +10,24 @@ public class User {
 	// Guest Constructor
 	public User() {
 		this.name = "Guest";
+		this.password = null;
 		this.userType = UserType.GUEST;
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
-	public User(String name, UserType userType) {
+	public User(String name, String password, UserType userType) {
 		this.name = name;
+		this.password = password;
 		this.userType = userType;
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
 	// Getters
-	public String getName() {
+	public String getUsername() {
 		return this.name;
+	}
+	public String getPassword() {
+		return this.password;
 	}
 	public UserType getUsertype() {
 		return this.userType;
@@ -30,6 +36,9 @@ public class User {
 	// Setters
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public void setUsertype(UserType usertype) {
 		this.userType = usertype;
