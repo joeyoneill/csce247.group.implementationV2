@@ -45,7 +45,7 @@ public class Driver {
             switch (userCommand) {
                 case (0):
                     // guest user
-                    currentUser = new User("guest", UserType.GUEST);
+                    currentUser = new User();
                     break;
                 case (1):
                     // sign in
@@ -62,6 +62,8 @@ public class Driver {
                 switch (userCommand) {
                     case (0):
                         pickEvent();
+                        userCommand = getUserInput(events.size());
+                        events.get(userCommand);
                         break;
                     case (1):
                         //
@@ -91,6 +93,7 @@ public class Driver {
             i++;
             System.out.println(i + ". " + event.toString());
         }
+
     }
 
     private void displayLoginMenu() {
