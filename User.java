@@ -1,9 +1,32 @@
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
 	private String name;
-	private UserType usertype;
-	private ArrayList<Ticket> purchasedTickets = new ArrayList<Ticket>();
+	private UserType userType;
+	private ArrayList<Ticket> purchasedTickets;
+	
+	// Guest Constructor
+	public User() {
+		this.name = "Guest";
+		this.userType = UserType.GUEST;
+		purchasedTickets = new ArrayList<Ticket>();
+	}
+	
+	// Getters
+	public String getName() {
+		return this.name;
+	}
+	public UserType getUsertype() {
+		return this.userType;
+	}
+
+	// Setters
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setUsertype(UserType usertype) {
+		this.userType = usertype;
+	}
 	
 	
 }
