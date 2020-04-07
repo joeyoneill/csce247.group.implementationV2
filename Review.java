@@ -40,8 +40,12 @@ public class Review {
 	}
 
 	public void setRating(int rating) {
-		if(rating >= 0 && rating <= 5)
+		if (rating >= 0 && rating <= 5)
 			this.rating = rating;
+	}
+
+	public String toString() {
+		return title + "\n" + description + "\n" + rating;
 	}
 
 }

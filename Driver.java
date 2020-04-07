@@ -320,7 +320,7 @@ public class Driver {
 				event.reviews.add(new Review(event.name, reviewTitleInput, reviewInput, ratingInput));
 				break;
 			} else if (viewInput.equals("3")) {
-				// TODO exit to home screen
+				// exit to home screen
 				break;
 			} else {
 				// System.out.println("Invalid Input.");
@@ -374,6 +374,12 @@ public class Driver {
 				scanner.nextLine();
 				continue;
 			}
+		}
+	}
+
+	public void eventReviews(Event event) {
+		for (int i = 0; i < event.reviews.size(); i++) {
+			System.out.println(event.reviews.get(i).toString());
 		}
 	}
 
