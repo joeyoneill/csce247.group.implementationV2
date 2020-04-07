@@ -9,8 +9,9 @@ public class Driver {
     private String[] venueOptions = { "" };
     private Scanner scanner;
     private ArrayList<User> users;
+    private User currentUser;
     private ArrayList<Venue> venues;
-    
+
     // Venues
     Venue playVenue = new Venue("playVenue", 5, 10);
     Venue concertVenue = new Venue("concertVenue", 20, 20);
@@ -27,8 +28,30 @@ public class Driver {
 
         while (true) {
             displayLoginMenu();
-            int userCommand = getUserCommand(signInOptions.length);
+            int userCommand = getUserInput(signInOptions.length);
+            if (userCommand == -1) {
+                System.out.println("Not valid command");
+                continue;
+            }
+            if (userCommand == signInOptions.length - 1) {
+                System.out.println("Goodbye");
+                break;
+            }
+            switch (userCommand) {
+                case (0):
+                    // guest user
+                    break;
+                case (1):
+                    // sign in
+                    break;
+            }
+            if (currentUser.getUsertype() == UserType.GUEST || currentUser.getUsertype() == UserType.REGULAR) {
+                displayMenuOptions();
+            }
+
         }
+    }
+
     }
 
     private void displayLoginMenu() {
