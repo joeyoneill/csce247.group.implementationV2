@@ -408,6 +408,8 @@ public class Driver {
     	
     	System.out.println("Enter the Event's name");
     	String eventNameInput = scanner.nextLine();
+    	// had to call extra nextline due to skipping the name input
+    	scanner.nextLine();
     	
     	System.out.println("Enter the Event's date (format: YYYY-MM-DD)");
     	String eventDateInput = scanner.nextLine();
