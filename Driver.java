@@ -53,7 +53,7 @@ public class Driver {
             	    case (1):
             	    	// Events Command
             	    	pickEvent();
-            	    	userCommand = getUserInput(events.size());
+            	    	userCommand = getUserInput(events.size() + 1);
                         eventView(events.get(userCommand - 1));
                         break;
                     case (2):
@@ -253,9 +253,10 @@ public class Driver {
     public void eventView(Event event) {
     	System.out.println(event.toString());
     	System.out.println("********************");
+    	String viewInput;
     	while(true) {
     		System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
-    		String viewInput = scanner.nextLine();
+    		viewInput = scanner.next();
     	
     		// Buy tickets
     		if (viewInput.equals("1")) {
@@ -300,7 +301,7 @@ public class Driver {
     					}
     				}
     			}
-    			continue;
+    			//continue;
     		}
     		// Ticket Review
     		else if (viewInput.equals("2")) {
@@ -309,10 +310,10 @@ public class Driver {
     			System.out.println("Enter your review.");
     			String reviewInput = scanner.nextLine();
     			System.out.println("Enter your rating. (A decimal value between 0 and 5)");
-    			double ratingInput;
+    			int ratingInput;
     		
     			while (true) {
-    				ratingInput = scanner.nextDouble();
+    				ratingInput = scanner.nextInt();
     				if(ratingInput < 0 || ratingInput > 5) {
     					System.out.println("Input Error: Out of bounds.");
     					continue;
