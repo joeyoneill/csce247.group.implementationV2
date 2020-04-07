@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Play extends Event {
 	
-	public Play(String name, String genre, Venue venue,
-			LocalDate date, LocalTime time) {
+	public Play(String name, Venue venue, LocalDate date, LocalTime time) {
 		this.name = name;
 		this.venue = venue;
 		this.type = "Play";		
 		this.date = date;
 		this.time = time;
 		this.seats = new boolean[venue.getRows()][venue.getColumns()];
+		this.reviews = new ArrayList<Review>();
 	}
 	
 	@Override
