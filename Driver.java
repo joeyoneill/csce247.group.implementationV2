@@ -24,15 +24,16 @@ public class Driver {
     public Driver() {
         scanner = new Scanner(System.in);
         database = new Database();
-        //database.readEventDBFile("eventsInput.txt", events);
-        //database.readUserDBFile("userInput.txt", users);
+        
+        // Initialize the driver arrays
         users = new ArrayList<User>();
-        users.add(new User("name","pass",UserType.REGULAR));
         events = new ArrayList<Event>();
-        /*events.add(new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0)));
-        events.add(new Movie("movie2", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(11,30,0)));
-        events.add(new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0)));*/
-
+        
+        // Read all database files on start up
+        database.readEventDBFile("eventsInput.txt", events);
+        database.readUserDBFile("userInput.txt", users);
+        database.readReviewDBFile("reviewsInput.txt", events);
+        database.readTicketDBFile("ticketInput.txt", users, events);
     }
 
     public void run() {
@@ -244,6 +245,11 @@ public class Driver {
         }
     }
     
+    /**
+     * View of Events
+     * From here you can buy event ticket, or leave the event a review
+     * @param event
+     */
     public void eventView(Event event) {
     	System.out.println(event.toString());
     	System.out.println("********************");
@@ -251,6 +257,7 @@ public class Driver {
     		System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
     		String viewInput = scanner.nextLine();
     	
+    		// Buy tickets
     		if (viewInput.equals("1")) {
     			event.visualizeSeating();
     		
@@ -281,6 +288,7 @@ public class Driver {
     			}
     			continue;
     		}
+    		// Ticket Review
     		else if (viewInput.equals("2")) {
     			System.out.println("Enter your review's title.");
     			String reviewTitleInput = scanner.nextLine();
@@ -312,6 +320,11 @@ public class Driver {
     	}
     }
     
+    /**
+     * View of tickets
+     * From here you can view and print tickets
+     * @param ticket
+     */
     public void ticketView(Ticket ticket) {
     	System.out.println(ticket.toString());
     	System.out.println("********************");
