@@ -46,17 +46,16 @@ public class PaymentInfo {
 	public void setExpYear(String expYear) {
 		this.expYear = "20" + expYear;
 	}
-	public void setExpDate(LocalDate expDate) {
+	public void setExpDate() {
 		if (expMonth == null) {
-			expDate = null;
+			this.expDate = null;
 		}
 		else if (expYear == null) {
-			expDate = null;
+			this.expDate = null;
 		}
 		else {
-			expDate = LocalDate.of(Integer.parseInt(expYear), Integer.parseInt(expMonth),1);
+			this.expDate = LocalDate.of(Integer.parseInt(expYear), Integer.parseInt(expMonth),1);
 		}
-		this.expDate = expDate;
 	}
 	public void setCcv(String ccv) {
 		this.ccv = ccv;
