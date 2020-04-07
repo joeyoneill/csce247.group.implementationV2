@@ -10,6 +10,11 @@ public class Driver {
     private Scanner scanner;
     private ArrayList<User> users;
     private ArrayList<Venue> venues;
+    
+    // Venues
+    Venue playVenue = new Venue("playVenue", 5, 10);
+    Venue concertVenue = new Venue("concertVenue", 20, 20);
+    Venue movieVenue = new Venue("movieVenue", 5, 10);
 
     Driver() {
         scanner = new Scanner(System.in);
