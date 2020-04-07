@@ -308,7 +308,8 @@ public class Driver {
 				int ratingInput;
 
 				while (true) {
-					ratingInput = scanner.nextInt();
+					String tmpInput = scanner.nextLine();
+					ratingInput = Integer.parseInt(tmpInput);
 					if (ratingInput < 0 || ratingInput > 5) {
 						System.out.println("Input Error: Out of bounds.");
 						continue;
