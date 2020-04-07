@@ -8,6 +8,7 @@ public abstract class Event {
 	public String type;
 	public LocalDate date;
 	public LocalTime time;
+	public boolean[][] seats;
 	public ArrayList<Review> reviews = new ArrayList<Review>();
 	
 	/**
