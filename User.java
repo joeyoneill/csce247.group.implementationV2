@@ -24,6 +24,14 @@ public class User {
 		purchasedTickets = new ArrayList<Ticket>();
 	}
 	
+	public User(String name, String password, UserType userType, String ccNum) {
+		this.name = name;
+		this.password = password;
+		this.userType = userType;
+		this.ccNum = ccNum;
+		purchasedTickets = new ArrayList<Ticket>();
+	}
+	
 	// Getters
 	public String getUsername() {
 		return this.name;
@@ -33,6 +41,12 @@ public class User {
 	}
 	public UserType getUsertype() {
 		return this.userType;
+	}
+	public String getCCNum() {
+		return this.ccNum;
+	}
+	public ArrayList<Ticket> getTickets() {
+		return this.purchasedTickets;
 	}
 
 	// Setters

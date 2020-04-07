@@ -3,6 +3,7 @@ import java.time.LocalTime;
 import java.io.*;
 
 class Ticket {
+  String username;
   Event event;
   LocalTime purchaseTime;
   LocalDate purchaseDate;
@@ -10,13 +11,26 @@ class Ticket {
   int seatCol;
   Boolean isRefundable;
 
-  public Ticket(Event event, int seatRow, int seatCol, boolean isRefundable, Venue venue) {
-    this.purchaseTime = LocalTime.now();
+  public Ticket(String username, Event event, int seatRow, int seatCol, boolean isRefundable) {
+	this.username = username;
+	this.event = event;
+	this.purchaseTime = LocalTime.now();
     this.purchaseDate = LocalDate.now();
     this.event = event;
     this.seatRow = seatRow; 
     this.seatCol = seatCol;
     this.isRefundable = isRefundable;
+  }
+  
+  public Ticket(String username, Event event, LocalTime purchaseTime, LocalDate purchaseDate, int seatRow, int seatCol, boolean isRefundable) {
+	this.username = username;
+	this.event = event;
+	this.purchaseTime = purchaseTime;
+	this.purchaseDate = purchaseDate;
+	this.event = event;
+	this.seatRow = seatRow; 
+	this.seatCol = seatCol;
+	this.isRefundable = isRefundable;
   }
 
   public Boolean isRefundable() {
