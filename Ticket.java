@@ -37,7 +37,7 @@ class Ticket {
     return isRefundable;
   }
   
-  public String printTicket() {
+  public void printTicket() {
 	String tick =
 			"********************\n" +
 			"Event name: " + event.name +
@@ -58,7 +58,19 @@ class Ticket {
 		System.out.println(e);
 	}
 	System.out.println("Print Success");
-	return tick;
+  }
+  
+  public String toString() {
+	  String tick =
+				"Event name: " + event.name +
+				"\n********************" +
+				"\n" + event.getType() +
+				"\n" + event.venue.getName() +
+				"\n" + "Row: " + seatRow +
+				"Col: " + seatCol +
+				"\n" + event.toString() +
+				"\n********************";
+	  return tick;
   }
 
 }

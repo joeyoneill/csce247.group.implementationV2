@@ -1,10 +1,12 @@
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Driver {
     public static final String WELCOME_MESSAGE = "************Welcome************";
     String[] signInOptions = { "Guest User", "Sign in", "Sign up", "Quit"};
-    String[] menuOptions = { "Events", "View Tickets", "Back" };
+    String[] menuOptions = { "View Events", "View Tickets", "Quit" };
     String[] employeeOptions = { "Create Event", "Logout" };
     String[] venueOptions = { "" };
     Scanner scanner;
@@ -27,36 +29,54 @@ public class Driver {
         users = new ArrayList<User>();
         users.add(new User("name","pass",UserType.REGULAR));
         events = new ArrayList<Event>();
+        events.add(new Movie("movie1", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(10,30,0)));
+        events.add(new Movie("movie2", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(11,30,0)));
+        events.add(new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0)));
 
     }
 
-    /*
     public void run() {
         System.out.println(WELCOME_MESSAGE);
+        login();
         
-         // this will be end of first while loop
-            
-            if (currentUser.getUsertype() == UserType.GUEST || currentUser.getUsertype() == UserType.REGULAR) {
-                displayMenuOptions();
-                userCommand = getUserInput(menuOptions.length);
-                if (userCommand == menuOptions.length - 1) {
-                    System.out.println("Going back");
-                    break;
-                }
-                switch (userCommand) {
-                    case (0):
-                        pickEvent();
-                        userCommand = getUserInput(events.size());
+        int userCommand;
+        while(true) {
+        	if (currentUser.getUsertype() == UserType.GUEST || currentUser.getUsertype() == UserType.REGULAR) {
+            	displayMenuOptions();
+            	userCommand = getUserInput(menuOptions.length + 1);
+            	/*if (userCommand == menuOptions.length - 1) {
+            		System.out.println("Going back");
+            		break;
+            	}*/
+            	switch (userCommand) {
+            	    case (1):
+            	    	// Events
+            	    	pickEvent();
+            	    	userCommand = getUserInput(events.size());
                         events.get(userCommand);
                         break;
-                    case (1):
-                        //
+                    case (2):
+                        // View Tickets
+                    	
+                    	// If there are no purchased tickets
+                    	if (currentUser.getTickets().isEmpty()) {
+                    		System.out.println("Currently no tickets are owned");
+                    		break;
+                    	}
+                        
+                        pickTicket();
+                        userCommand = getUserInput(currentUser.getTickets().size());
                         break;
+                    case (3):
+                    	// Quit
+                    	System.out.println("Goodbye!");
+                        System.exit(0);
+                    	break;
                 }
-
             }
-            if (currentUser.getUsertype() == UserType.EMPLOYEE) {
+        	else if (currentUser.getUsertype() == UserType.EMPLOYEE) {
                 displayEmployeeOptions();
+                userCommand = getUserInput(employeeOptions.length + 1);
                 if (userCommand == menuOptions.length - 1) {
                     System.out.println("Logging out");
                     break;
@@ -67,9 +87,8 @@ public class Driver {
                         break;
                 }
             }
-
         }
-    }*/
+    }
 
 	public void login() {
 		boolean contLoginScreen = true;
@@ -174,7 +193,14 @@ public class Driver {
             i++;
             System.out.println(i + ". " + event.toString());
         }
-
+    }
+    
+    private void pickTicket() {
+    	int i = 0;
+    	for (Ticket ticket : currentUser.getTickets()) {
+    		i++;
+    		System.out.println(i + ". " + ticket.toString());
+    	}
     }
 
     private void displayLoginMenu() {
@@ -209,8 +235,33 @@ public class Driver {
         }
     }
     
+    public void eventView(Event event) {
+    	System.out.println(event.toString());
+    	System.out.println("********************");
+    	System.out.println("Type 1 to buy ticket, 2 to leave a review, or 3 to exit");
+    	String viewInput = scanner.nextLine();
+    	
+    	if (viewInput.equals("1")) {
+    		event.visualizeSeating();
+    		//Ticket ticket = new Ticket(currentUser.getName(), Event event, int seatRow, int seatCol, boolean isRefundable);
+    		//currentUser.purchaseTicket(ticket);
+    	}
+    	else if (viewInput.equals("2")) {
+    		
+    	}
+    	else if (viewInput.equals("3")) {
+    		
+    	}
+    	else {
+    		System.out.println("Invalid Input.");
+    	}
+    }
+    
     public static void main(String[] args) {
         Driver driver = new Driver();
-        driver.login();      
+        //driver.run();
+        Venue movieVenue = new Venue("movieVenue", 5, 10);
+        Event event = new Movie("movie3", movieVenue, LocalDate.of(2020, 5, 1), LocalTime.of(12,30,0));
+        driver.eventView(event);
     }
 }

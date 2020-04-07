@@ -40,16 +40,14 @@ public abstract class Event {
 	}
 	
 	public void visualizeSeating() {
-		int openSeats = 1;
 		
 		for(int i = 0; i < venue.getRows(); i++) {
-			for(int j = 0; i < venue.getColumns(); i++) {
+			for(int j = 0; j < venue.getColumns(); j++) {
 				if (seats[i][j] == false) {
-					System.out.print("X ");
+					System.out.print((i+1) + "," + (j+1) + " ");
 				}
 				else {
-					System.out.print(openSeats + " ");
-					openSeats++;
+					System.out.print("X ");
 				}
 			}
 			System.out.print("\n");
