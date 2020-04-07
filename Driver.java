@@ -21,6 +21,8 @@ public class Driver {
     Venue concertVenue = new Venue("concertVenue", 20, 20);
     Venue movieVenue = new Venue("movieVenue", 5, 10);
 
+    
+    
     public Driver() {
         scanner = new Scanner(System.in);
         database = new Database();
@@ -30,10 +32,7 @@ public class Driver {
         events = new ArrayList<Event>();
         
         // Read all database files on start up
-        database.readEventDBFile("eventsInput.txt", events);
-        database.readUserDBFile("userInput.txt", users);
-        database.readReviewDBFile("reviewsInput.txt", events);
-        database.readTicketDBFile("ticketInput.txt", users, events);
+        database.load(events, users);
     }
 
     public void run() {
@@ -225,7 +224,7 @@ public class Driver {
         System.out.println("Please choose a menu option: (Number input)");
         String input = scanner.nextLine();
         int command = Integer.parseInt(input); // -1 for array index
-        if (command >= 0 && command < numOfOptions) {
+        if (command >= 0 && command <= numOfOptions) {
             return command;
         }
         return -1;
@@ -305,11 +304,12 @@ public class Driver {
     		}
     		// Ticket Review
     		else if (viewInput.equals("2")) {
+    			scanner.nextLine();
     			System.out.println("Enter your review's title.");
     			String reviewTitleInput = scanner.nextLine();
     			System.out.println("Enter your review.");
     			String reviewInput = scanner.nextLine();
-    			System.out.println("Enter your rating. (A decimal value between 0 and 5)");
+    			System.out.println("Enter your rating. (An integer value between 0 and 5)");
     			int ratingInput;
     		
     			while (true) {
@@ -388,10 +388,7 @@ public class Driver {
     
     // rewrites all db files with updated information
     public void updateDatabaseOnClose() {
-    	database.writeEventDBFile("eventsInput.txt", events);
-    	database.writeUserDBFile("userInput.txt", users);
-    	database.writeReviewDBFile("reviewsInput.txt", events);
-    	database.writeTicketDBFile("ticketInput.txt", users);
+    	database.save(events, users);
     }
     
     // allows employees to create events

@@ -11,6 +11,20 @@ public class Database {
 	public Database() {
 	}
 	
+	public void load(ArrayList <Event> events, ArrayList <User> users) {
+    	readEventDBFile("events.txt", events);
+		readUserDBFile("users.txt", users);
+		readReviewDBFile("reviews.txt", events);
+		readTicketDBFile("tickets.txt", users, events);
+    }
+	
+	public void save(ArrayList <Event> events, ArrayList <User> users) {
+		writeEventDBFile("events.txt", events);
+		writeUserDBFile("users.txt", users);
+		writeReviewDBFile("reviews.txt", events);
+		writeTicketDBFile("tickets.txt", users);
+	}
+	
 	public void writeEventDBFile(String aFileName, ArrayList<Event> events) {
 		try {
 			PrintWriter fileWriter = new PrintWriter(
