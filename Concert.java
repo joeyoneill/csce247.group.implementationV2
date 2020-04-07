@@ -6,15 +6,12 @@ public class Concert extends Event {
 	public ArrayList<String> acts;
 	
 	public Concert(String name, String genre, double cost, Venue venue,
-			LocalDate date, LocalTime time, int runTime,
-			int seatRows, int seatColumns) {
+			LocalDate date, LocalTime time, int seatRows, int seatColumns) {
 		this.name = name;
 		this.venue = venue;
 		this.type = "Concert";		
 		this.date = date;
 		this.time = time;
-		this.rows = seatRows;
-		this.columns = seatColumns;
 		
 		//Check for valid seat dimensions
 		if(seatRows > 0 && seatColumns > 0) {

@@ -34,5 +34,8 @@ public class User {
 		this.userType = usertype;
 	}
 	
+	public void purchaseTicket(Ticket ticket) {
+		purchasedTickets.add(ticket);
+	}
 	
 }

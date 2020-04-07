@@ -4,7 +4,6 @@ import java.io.*;
 
 class Ticket {
   Event event;
-  Venue venue;
   LocalTime purchaseTime;
   LocalDate purchaseDate;
   int seatRow;
@@ -18,7 +17,6 @@ class Ticket {
     this.seatRow = seatRow; 
     this.seatCol = seatCol;
     this.isRefundable = isRefundable;
-    this.venue = venue;
   }
 
   public Boolean isRefundable() {
@@ -28,7 +26,7 @@ class Ticket {
   public String printTicket() {
 	String tick =
 			"Event type: " + event.getType() +
-			"\n" + venue.getName() +
+			"\n" + event.venue.getName() +
 			"\n" + "Row: " + seatRow +
 			"Col: " + seatCol +
 			"\n" + event.toString();

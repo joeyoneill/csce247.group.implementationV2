@@ -9,10 +9,6 @@ public abstract class Event {
 	public LocalDate date;
 	public LocalTime time;
 	public ArrayList<Review> reviews = new ArrayList<Review>();
-	public int rows;
-	public int columns;
-	public boolean[][] seats; //false = not taken
-
 	
 	/**
 	 * Average rating generates an average out of 5 from all ratings
