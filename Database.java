@@ -38,6 +38,7 @@ public class Database {
 		  }
 	}
 	
+	// This is reading in 
 	public void readEventDBFile(String aFileName, ArrayList<Event> events) {
 		try {
 			Scanner fileScanner = new Scanner (new File(aFileName));
@@ -59,7 +60,7 @@ public class Database {
 				boolean array[][] = stringToBoolArray(rows, columns, splitStr[7]);
 				
 				Venue venue = new Venue(venueName, rows, columns);
-						
+				
 				if(type.equalsIgnoreCase("Movie")) {
 					Event event = new Movie(name, venue, date, time, array);
 					events.add(event);
@@ -73,7 +74,7 @@ public class Database {
 					events.add(event);
 				}
 			}
-			fileScanner.close();//DON'T FORGET IT
+			fileScanner.close();
 		}
 		catch(Exception e)
 		{
@@ -91,7 +92,7 @@ public class Database {
 				 if(user == null)
 					 break;
 				 
-				 fileWriter.println(user.getUsername()+DELIM+
+				 fileWriter.println(user.getName()+DELIM+
 						user.getPassword()+DELIM+
 						user.getUsertype()+DELIM+
 						user.getCCNum());
@@ -301,7 +302,7 @@ public class Database {
 	
 	public User findUser(String username, ArrayList<User> users) {
 		for(User user : users) {
-			if(user.getUsername().equals(username)) {
+			if(user.getName().equals(username)) {
 				return user;
 			}
 		}

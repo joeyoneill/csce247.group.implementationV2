@@ -33,7 +33,7 @@ public class User {
 	}
 	
 	// Getters
-	public String getUsername() {
+	public String getName() {
 		return this.name;
 	}
 	public String getPassword() {
