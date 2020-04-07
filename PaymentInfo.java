@@ -1,5 +1,3 @@
-package csce247groupImplementation;
-
 import java.time.LocalDate;
 
 public class PaymentInfo {
