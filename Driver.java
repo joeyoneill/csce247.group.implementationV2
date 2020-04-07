@@ -275,13 +275,13 @@ public class Driver {
 						System.out.println("Enter the row you wish to choose from.");
 						int rowInput = scanner.nextInt() - 1;
 						if (rowInput < 0 || rowInput > event.venue.getRows()) {
-							System.out.println("Invalid Input");
+							System.out.println("Invalid Input278");
 							continue;
 						} else {
 							System.out.println("Enter the seat you wish to choose.");
 							int colInput = scanner.nextInt() - 1;
 							if (colInput < 0 || colInput > event.venue.getColumns()) {
-								System.out.println("Invalid Input");
+								System.out.println("Invalid Input284");
 								continue;
 							} else {
 								if (event.checkSeatAvailability(rowInput, colInput) == true) {
@@ -322,8 +322,8 @@ public class Driver {
 				// TODO exit to home screen
 				break;
 			} else {
-				System.out.println("Invalid Input.");
-				continue;
+				// System.out.println("Invalid Input.");
+				break;
 			}
 		}
 	}
