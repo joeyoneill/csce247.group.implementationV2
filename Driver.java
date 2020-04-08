@@ -256,13 +256,15 @@ public class Driver {
 
 			// Buy tickets
 			if (viewInput.equals("1")) {
+				double purchaseTotal = 0;
+				
 				event.visualizeSeating();
 				System.out.println("********************");
 
 				System.out.println("How many tickets would you like to buy?");
 				int ticketAmtInput;
 				while (true) {
-					ticketAmtInput = scanner.nextInt();
+					ticketAmtInput = Integer.parseInt(scanner.nextLine());
 					if (ticketAmtInput < 1 || ticketAmtInput > event.seatsRemaining()) {
 						System.out.println("Input Error: Out of Bounds.");
 						continue;
@@ -273,18 +275,31 @@ public class Driver {
 				for (int i = 0; i < ticketAmtInput; i++) {
 					while (true) {
 						System.out.println("Enter the row you wish to choose from.");
-						int rowInput = scanner.nextInt() - 1;
+						int rowInput = Integer.parseInt(scanner.nextLine()) - 1;
 						if (rowInput < 0 || rowInput > event.venue.getRows()) {
-							System.out.println("Invalid Input278");
+							System.out.println("Invalid Input");
 							continue;
-						} else {
+						} 
+						else {
 							System.out.println("Enter the seat you wish to choose.");
-							int colInput = scanner.nextInt() - 1;
+							int colInput = Integer.parseInt(scanner.nextLine()) - 1;
 							if (colInput < 0 || colInput > event.venue.getColumns()) {
 								System.out.println("Invalid Input284");
 								continue;
-							} else {
+							} 
+							else {
 								if (event.checkSeatAvailability(rowInput, colInput) == true) {
+									while(currentUser.getCCNum() == null) {
+										System.out.println("Enter credit card number (must be 16 digits)");
+										String ccNum = scanner.nextLine();
+										currentUser.setCreditCardNumber(ccNum);
+										if(currentUser.getCCNum() == null) {
+											System.out.println("Credit card number does not follow the correct format");
+										}
+									}
+									String ccNum = currentUser.getCCNum();
+									System.out.println("Charging ticket price to credit card " + "************" +
+											ccNum.charAt(12) + ccNum.charAt(13) + ccNum.charAt(14) + ccNum.charAt(15));
 									Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
 									currentUser.purchaseTicket(ticket);
 									System.out.println("Ticket purchased!");
@@ -433,6 +448,12 @@ public class Driver {
 			venueColumns = Integer.parseInt(columns);
 		}
 		
+		System.out.println("Enter ticket cost in XX.XX (double format)");
+		double cost = -1.0;
+		while(cost < 0) {
+			cost = Double.parseDouble(scanner.nextLine());
+		}
+		
 		venueRows--;
 		venueColumns--;
 		
@@ -441,14 +462,14 @@ public class Driver {
 		Event newEvent;
 		if (eventInput == 1) {
 			newEvent = new Concert(eventNameInput, venue, LocalDate.parse(eventDateInput),
-					LocalTime.parse(eventTimeInput));
+					LocalTime.parse(eventTimeInput), cost);
 		} else if (eventInput == 2) {
 			newEvent = new Movie(eventNameInput, venue, LocalDate.parse(eventDateInput),
-					LocalTime.parse(eventTimeInput));
+					LocalTime.parse(eventTimeInput), cost);
 		} else {
 			// else can only be eventInput == 3
 			newEvent = new Play(eventNameInput, venue, LocalDate.parse(eventDateInput),
-					LocalTime.parse(eventTimeInput));
+					LocalTime.parse(eventTimeInput), cost);
 		}
 		events.add(newEvent);
 		System.out.println("Event " + newEvent.name + " added!");

@@ -12,7 +12,7 @@ public class Database {
 	//Delimiting character for file
 	public static final String DELIM = "\t"; 
 	//There should be 8 fields in each line of the event file
-	public static final int EVENT_FIELD_AMOUNT = 8; 
+	public static final int EVENT_FIELD_AMOUNT = 9; 
 	//There should be 4 fields in each line of the user file
 	public static final int USER_FIELD_AMOUNT = 4; 
 	//There should be 4 fields in each line of the review file
@@ -73,7 +73,8 @@ public class Database {
 						event.getType()+DELIM+
 						event.date.toString()+DELIM+
 						event.time.toString()+DELIM+
-				 		boolString);
+				 		boolString+DELIM+
+				 		event.cost);
 				 		
 			 }
 			 fileWriter.close();//DON'T FORGET TO CLOSE STREAMS
@@ -111,21 +112,22 @@ public class Database {
 				LocalTime time = LocalTime.parse(splitStr[6]);
 				//Convert stored string back to boolean array
 				boolean array[][] = stringToBoolArray(rows, columns, splitStr[7]);
+				double cost = Double.parseDouble(splitStr[8]);
 				
 				//Generate the venue from stored data
 				Venue venue = new Venue(venueName, rows, columns);
 				
 				//Determine what type of event to create. then do it and store. If none of these apply, don't create event
 				if(type.equalsIgnoreCase("Movie")) {
-					Event event = new Movie(name, venue, date, time, array);
+					Event event = new Movie(name, venue, date, time, array, cost);
 					events.add(event);
 				}
 				else if(type.equalsIgnoreCase("Play")) {
-					Event event = new Play(name, venue, date, time, array);
+					Event event = new Play(name, venue, date, time, array, cost);
 					events.add(event);
 				}
 				else if(type.equalsIgnoreCase("Concert")) {
-					Event event = new Concert(name, venue, date, time, array);
+					Event event = new Concert(name, venue, date, time, array, cost);
 					events.add(event);
 				}
 			}

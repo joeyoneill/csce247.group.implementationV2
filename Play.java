@@ -13,8 +13,9 @@ public class Play extends Event {
 	 * @param venue - venue object
 	 * @param date - event date in LocalDate format
 	 * @param time - event time in LocalTime format
+	 * @param cost - double of ticket cost in dollars
 	 */
-	public Play(String name, Venue venue, LocalDate date, LocalTime time) {
+	public Play(String name, Venue venue, LocalDate date, LocalTime time, double cost) {
 		this.name = name;
 		this.venue = venue;
 		this.type = "Play";		
@@ -22,6 +23,7 @@ public class Play extends Event {
 		this.time = time;
 		this.seats = new boolean[venue.getRows()][venue.getColumns()];
 		this.reviews = new ArrayList<Review>();
+		this.cost = cost;
 	}
 	
 	/**
@@ -31,8 +33,9 @@ public class Play extends Event {
 	 * @param date - event date in LocalDate format
 	 * @param time - event time in LocalTime format
 	 * @param seats - boolean array of available seats
+	 * @param cost - double of ticket cost in dollars
 	 */
-	public Play(String name, Venue venue, LocalDate date, LocalTime time, boolean[][] seats) {
+	public Play(String name, Venue venue, LocalDate date, LocalTime time, boolean[][] seats, double cost) {
 		this.name = name;
 		this.venue = venue;
 		this.type = "Play";		
@@ -40,6 +43,7 @@ public class Play extends Event {
 		this.time = time;
 		this.seats = seats;
 		this.reviews = new ArrayList<Review>();
+		this.cost = cost;
 	}
 	
 	@Override

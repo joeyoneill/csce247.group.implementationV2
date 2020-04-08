@@ -9,6 +9,7 @@ public abstract class Event {
 	public String name;
 	public Venue venue;
 	public String type;
+	public double cost;
 	public LocalDate date;
 	public LocalTime time;
 	//2D boolean array store seats; if true at index, seat is taken
@@ -40,6 +41,7 @@ public abstract class Event {
 				"\nType: " + this.type +
 				"\nDate: " + this.date +
 				"\nTime: " + this.time +
+				"\nCost: $" + this.cost +
 				"\nAverage Review: " + AverageRating() + "/5.0";
 	}
 
