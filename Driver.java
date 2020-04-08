@@ -50,7 +50,8 @@ public class Driver {
 					case (1):
 						// Events Command
 						pickEvent();
-						userCommand = getUserInput(events.size() + 1);
+						String eventString = "Enter the event number of the event you would like to select";
+						userCommand = getUserInputPlusString(events.size() + 1, eventString);
 						eventView(events.get(userCommand - 1));
 						break;
 					case (2):
@@ -62,7 +63,8 @@ public class Driver {
 						}
 						// If there are tickets
 						pickTicket();
-						userCommand = getUserInput(currentUser.getTickets().size());
+						String ticketString = "Enter the ticket number of the ticket you would like to select";
+						userCommand = getUserInputPlusString(currentUser.getTickets().size(), ticketString);
 						// TODO ticket view is messed up. User command is getting overwritten
 						ticketView(currentUser.getTickets().get(userCommand - 1));
 						break;
@@ -225,6 +227,15 @@ public class Driver {
 		}
 		return -1;
 	}
+	private int getUserInputPlusString(int numOfOptions, String string) {
+		System.out.println(string);
+		String input = scanner.nextLine();
+		int command = Integer.parseInt(input); // -1 for array index
+		if (command >= 0 && command <= numOfOptions) {
+			return command;
+		}
+		return -1;
+	}
 
 	private void displayMenuOptions() {
 		System.out.println("\n***** MENU OPTIONS *****");
@@ -251,12 +262,12 @@ public class Driver {
 		System.out.println("********************");
 		String viewInput;
 		while (true) {
-			System.out.println("Type 1 to buy ticket, 2 to leave a review, 3 to see reviews, or 4 to exit");
+			System.out.println("Type 1 to buy ticket, 2 to leave a review, 3 to see reviews, or 4 to go back");
 			viewInput = scanner.nextLine();
 
 			// Buy tickets
 			if (viewInput.equals("1")) {
-				double purchaseTotal = 0;
+				double price = event.cost;
 				
 				event.visualizeSeating();
 				System.out.println("********************");
@@ -298,7 +309,7 @@ public class Driver {
 										}
 									}
 									String ccNum = currentUser.getCCNum();
-									System.out.println("Charging ticket price to credit card " + "************" +
+									System.out.println("Charging $" + price + " to credit card " + "************" +
 											ccNum.charAt(12) + ccNum.charAt(13) + ccNum.charAt(14) + ccNum.charAt(15));
 									Ticket ticket = new Ticket(currentUser.getName(), event, rowInput, colInput, true);
 									currentUser.purchaseTicket(ticket);
@@ -353,7 +364,7 @@ public class Driver {
 		System.out.println(ticket.toString());
 		System.out.println("********************");
 		while (true) {
-			System.out.print("Type 1 to print ticket, 2 to exit");
+			System.out.print("Type 1 to print ticket, 2 to return to the main menu");
 
 			if (ticket.isRefundable == true)
 				System.out.print(", or 3 to get a refund on your ticket.");

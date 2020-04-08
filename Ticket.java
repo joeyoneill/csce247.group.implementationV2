@@ -92,11 +92,13 @@ class Ticket {
 	  String tick =
 				"Event name: " + event.name +
 				"\n********************" +
-				"\n" + event.getType() +
-				"\n" + event.venue.getName() +
+				"\nType: " + event.getType() +
+				"\nVenue: " + event.venue.getName() +
 				"\n" + "Row: " + seatRow +
 				" Col: " + seatCol +
-				"\n" + event.toString() +
+				"\nDate: " + event.date +
+				"\nTime: " + event.time +
+				"\nCost: $" + event.cost +
 				"\n********************";
 	  return tick;
   }

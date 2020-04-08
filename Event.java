@@ -44,6 +44,7 @@ public abstract class Event {
 				"\nCost: $" + this.cost +
 				"\nAverage Review: " + AverageRating() + "/5.0";
 	}
+	
 
 	public String getType() {
 		return type;
