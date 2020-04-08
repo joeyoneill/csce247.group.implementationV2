@@ -1,2 +1,3 @@
 cdcoffin	password	REGULAR	9000100020003000
 JohnnyAppleseed	monkey5	MILITARY	1000100010001000
+user	pass	REGULAR	null
