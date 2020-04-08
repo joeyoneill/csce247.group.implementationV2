@@ -10,10 +10,11 @@ public class Review {
 
 	/**
 	 * Default constructor: generates review
-	 * @param eventName - name of event
-	 * @param title - title of review
+	 * 
+	 * @param eventName   - name of event
+	 * @param title       - title of review
 	 * @param description - description of review
-	 * @param rating - integer rating 0-5 of event
+	 * @param rating      - integer rating 0-5 of event
 	 */
 	public Review(String eventName, String title, String description, int rating) {
 		this.eventName = eventName;
@@ -56,7 +57,7 @@ public class Review {
 	}
 
 	public String toString() {
-		return title + "\n" + description + "\n" + rating;
+		return "Review title:\t" + title + "\nDescription:\t" + description + "\nRating:\t\t" + rating;
 	}
 
 }
