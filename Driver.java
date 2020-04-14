@@ -237,11 +237,12 @@ public class Driver {
 		return -1;
 	}
 
-	private void displayMenuOptions() {
+	public boolean displayMenuOptions() {
 		System.out.println("\n***** MENU OPTIONS *****");
 		for (int i = 0; i < menuOptions.length; i++) {
 			System.out.println((i + 1) + ". " + menuOptions[i]);
 		}
+		return true;
 	}
 
 	private void displayEmployeeOptions() {
@@ -412,8 +413,9 @@ public class Driver {
 	}
 
 	// rewrites all db files with updated information
-	public void updateDatabaseOnClose() {
+	public boolean updateDatabaseOnClose() {
 		database.save(events, users);
+		return true;
 	}
 
 	// allows employees to create events
