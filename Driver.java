@@ -218,7 +218,7 @@ public class Driver {
 		}
 	}
 
-	private int getUserInput(int numOfOptions) {
+	public int getUserInput(int numOfOptions) {
 		System.out.println("Please choose a menu option: (Number input)");
 		String input = scanner.nextLine();
 		int command = Integer.parseInt(input); // -1 for array index
@@ -245,11 +245,12 @@ public class Driver {
 		return true;
 	}
 
-	private void displayEmployeeOptions() {
+	public boolean displayEmployeeOptions() {
 		System.out.println("\n***** MENU OPTIONS *****");
 		for (int i = 0; i < employeeOptions.length; i++) {
 			System.out.println((i + 1) + ". " + employeeOptions[i]);
 		}
+		return true;
 	}
 
 	/**
